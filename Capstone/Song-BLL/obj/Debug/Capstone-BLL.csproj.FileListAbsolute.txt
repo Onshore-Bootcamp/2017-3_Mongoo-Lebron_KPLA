@@ -1,0 +1,5 @@
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Song-BLL\bin\Debug\Song-BLL.dll
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Song-BLL\bin\Debug\Song-BLL.pdb
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Song-BLL\obj\Debug\Capstone-BLL.csprojResolveAssemblyReference.cache
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Song-BLL\obj\Debug\Song-BLL.dll
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Song-BLL\obj\Debug\Song-BLL.pdb

@@ -1,0 +1,5 @@
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Capstone-DAL\bin\Debug\Capstone-DAL.dll
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Capstone-DAL\bin\Debug\Capstone-DAL.pdb
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Capstone-DAL\obj\Debug\Capstone-DAL.dll
+c:\Users\Mongoo\documents\visual studio 2015\Projects\Capstone\Capstone-DAL\obj\Debug\Capstone-DAL.pdb
+C:\Users\Mongoo\Documents\Visual Studio 2015\Projects\Capstone\Capstone-DAL\obj\Debug\Capstone-DAL.csprojResolveAssemblyReference.cache

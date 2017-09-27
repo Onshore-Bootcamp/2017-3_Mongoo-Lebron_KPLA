@@ -1,0 +1,101 @@
+﻿@model Capstone_MVC.ViewModels.ArtistVM
+@{
+    ViewBag.Title = "UpdateArtistByID";
+}
+
+<!--Div for Artist's properties-->
+<div class="container row">
+
+    <h2 class="purple-header">Update Artist</h2>
+    <h2></h2>
+    <h4 class="purple-header">Current Details</h4>
+    <h2></h2>
+
+    @using (Html.BeginForm("UpdateArtistByID", "Artist", FormMethod.Post))
+    {
+        <!--Div for first column-->
+        <div class="col-md-4">
+            @Html.HiddenFor(model => Model.Artist.ArtistID)
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.Name)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.Name,
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Artist.Name, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.Genre)
+                @Html.TextBoxFor(model => Model.Artist.Genre,
+                    new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.NumberOfMembers)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.NumberOfMembers,
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Artist.NumberOfMembers, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for second column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.PictureURL)
+                @Html.TextBoxFor(model => Model.Artist.PictureURL,
+                    new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.Status)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.Status,
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Artist.Status, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.YearsActive)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.YearsActive,
+                    new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Artist.YearsActive, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for third column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.Company)
+                @Html.TextBoxFor(model => Model.Artist.Company,
+                    new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.GaonAwards)
+                @Html.TextBoxFor(model => Model.Artist.GaonAwards,
+                    new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.ExternalLink)
+                @Html.TextBoxFor(model => Model.Artist.ExternalLink,
+                    new { @class = "form-control" })
+            </div>
+        </div>
+        <!--Submit button-->
+        <div class="form-group col-md-offset-5">
+            <input class="btn btn-success" type="submit" value="Submit Changes" />
+        </div>
+    }
+</div>
+<!--Div for Cancel button-->
+<div>
+    @Html.ActionLink("Cancel", "ViewArtistByID", "Artist", new { iArtistID = Model.Artist.ArtistID },
+        new { @class = "btn btn-danger btn-sm" })
+</div>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Logout";
+}
+
+<head>
+    <!--Nothing here-->
+</head>
+<body style="background-color: #d3d3d3;" onload="setTimeout(RedirectToLogIn, 2500);">
+    <div class="jumbotron welcome">
+        <h1>Good-bye</h1>
+    </div>
+    <!--JavaScript for function to send user to Log In view-->
+    <script>
+        function RedirectToLogIn() {
+            window.location.replace("http://localhost:52626/User/Login");
+        }
+    </script>
+</body>

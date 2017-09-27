@@ -1,0 +1,123 @@
+﻿@model Capstone_MVC.ViewModels.AlbumVM
+@{
+    ViewBag.Title = "AddNewAlbum";
+}
+
+@using (Html.BeginForm("AddNewAlbum", "Album", FormMethod.Post))
+{
+    <div class="container row">
+        <h2 class="purple-header">Add New Album</h2>
+        <!--Div for first column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.Name)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.Name,
+                    new { @class = "form-control", @placeholder = "Album's Name..." })
+                @Html.ValidationMessageFor(model => Model.Album.Name, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-horizontal">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.ArtistID)
+                </div>
+                @Html.DropDownListFor(model => Model.Album.ArtistID, Model.Album.DropdownArtists,
+                     "-- Pick an existing artist --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Album.ArtistID, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Album.Genre)
+                @Html.TextBoxFor(model => Model.Album.Genre,
+                    new { @class = "form-control", @placeholder = "Album's Genre..." })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.ReleaseDate)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.ReleaseDate,
+                    new { @class = "form-control", @placeholder = "Release Date...", @Value = "" })
+                @Html.ValidationMessageFor(model => Model.Album.ReleaseDate, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for second column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Album.PictureURL)
+                @Html.TextBoxFor(model => Model.Album.PictureURL,
+                    new { @class = "form-control", @placeholder = "Album's Picture URL..." })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.NumberOfTracks)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.NumberOfTracks,
+                    new { @class = "form-control", @placeholder = "Number of Tracks...", @Value = "" })
+                @Html.ValidationMessageFor(model => Model.Album.NumberOfTracks, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.Duration)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.Duration,
+                    new { @class = "form-control", @placeholder = "Album's Duration...", @Value = "" })
+                @Html.ValidationMessageFor(model => Model.Album.Duration, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.AlbumType)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.AlbumType,
+                    new { @class = "form-control", @placeholder = "Album Type..." })
+                @Html.ValidationMessageFor(model => Model.Album.AlbumType, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for third column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Album.ReleaseType)
+                </div>
+                @Html.TextBoxFor(model => Model.Album.ReleaseType,
+                    new { @class = "form-control", @placeholder = "Release Type..." })
+                @Html.ValidationMessageFor(model => Model.Album.ReleaseType, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Album.Sales)
+                @Html.TextBoxFor(model => Model.Album.Sales,
+                    new { @class = "form-control", @placeholder = "Current Sales..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Album.GaonAwards)
+                @Html.TextBoxFor(model => Model.Album.GaonAwards,
+                    new { @class = "form-control", @placeholder = "Gaon Awards Won..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Album.AudioLink)
+                @Html.TextBoxFor(model => Model.Album.AudioLink,
+                    new { @class = "form-control", @placeholder = "Link To Album Audio..." })
+            </div>
+        </div>
+        <div class="form-group col-md-offset-5">
+            <!--Submit button-->
+            <input class="btn btn-success btn-lg" type="submit" value="Submit" />
+        </div>
+    </div>
+}
+<!--Div for Cancel button-->
+<div>
+    @Html.ActionLink("Cancel", "Index", "Album", null, new { @class = "btn btn-danger" })
+</div>

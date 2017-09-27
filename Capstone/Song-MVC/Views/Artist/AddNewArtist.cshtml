@@ -1,0 +1,112 @@
+﻿@model Capstone_MVC.ViewModels.ArtistVM
+@{
+    ViewBag.Title = "AddNewArtist";
+}
+
+@using (Html.BeginForm("AddNewArtist", "Artist", FormMethod.Post))
+{
+    <div class="container row">
+        <h2 class="purple-header">Add New Artist</h2>
+        <!--Div for first column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.Name)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.Name,
+                    new { @class = "form-control", @placeholder = "Artist's Name..." })
+                @Html.ValidationMessageFor(model => Model.Artist.Name, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.Genre)
+                @Html.TextBoxFor(model => Model.Artist.Genre,
+                    new { @class = "form-control", @placeholder = "Artist's Genre..." })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.NumberOfMembers)
+                </div>
+                <!--If statement to set value to emptry string instead of 0-->
+                @if (Model.Artist.NumberOfMembers != 0)
+                {
+                    @Html.TextBoxFor(model => Model.Artist.NumberOfMembers,
+                        new { @class = "form-control", @placeholder = "Number of Members..." })
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => Model.Artist.NumberOfMembers,
+                        new { @class = "form-control", @placeholder = "Number of Members...", @Value = "" })
+                }
+                @Html.ValidationMessageFor(model => Model.Artist.NumberOfMembers, "",
+                   new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for second column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.PictureURL)
+                @Html.TextBoxFor(model => Model.Artist.PictureURL,
+                    new { @class = "form-control", @placeholder = "URL of Artist's Picture..." })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.Status)
+                </div>
+                @Html.TextBoxFor(model => Model.Artist.Status,
+                   new { @class = "form-control", @placeholder = "Artist's Status..." })
+                @Html.ValidationMessageFor(model => Model.Artist.Status, "",
+                   new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Artist.YearsActive)
+                </div>
+                <!--If statement to set value to emptry string instead of 0-->
+                @if (Model.Artist.YearsActive != 0)
+                {
+                    @Html.TextBoxFor(model => Model.Artist.YearsActive,
+                       new { @class = "form-control", @placeholder = "Years Active..." });
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => Model.Artist.YearsActive,
+                       new { @class = "form-control", @placeholder = "Years Active...", @Value = "" });
+                }
+
+                @Html.ValidationMessageFor(model => Model.Artist.YearsActive, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!---Div for third column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.Company)
+                @Html.TextBoxFor(model => Model.Artist.Company,
+                    new { @class = "form-control", @placeholder = "Artist's Company..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.GaonAwards)
+                @Html.TextBoxFor(model => Model.Artist.GaonAwards,
+                    new { @class = "form-control", @placeholder = "Artist's Gaon Award Wins..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Artist.ExternalLink)
+                @Html.TextBoxFor(model => Model.Artist.ExternalLink,
+                    new { @class = "form-control", @placeholder = "Official Link for Artist..." })
+            </div>
+        </div>
+        <div class="form-group col-md-offset-5">
+            <!--Submit button-->
+            <input class="btn btn-success btn-lg" type="submit" value="Submit" />
+        </div>
+    </div>
+}
+<!--Div for Cancel button-->
+<div>
+    @Html.ActionLink("Cancel", "Index", "Artist", null, new { @class = "btn btn-danger" })
+</div>

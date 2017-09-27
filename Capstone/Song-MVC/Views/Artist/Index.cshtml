@@ -1,0 +1,124 @@
+﻿@using Capstone_MVC.Models
+@model Capstone_MVC.ViewModels.ArtistVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="all-artists">
+    <h2 class="purple-header">All Artists</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Genre</th>
+                <th>Status</th>
+                <th>Company</th>
+                <th>External Link</th>
+                @if (Session["Username"] == null)
+                {
+                <!--If guest, display no header for View Details option-->
+                }
+                else
+                {
+                <!--If user is logged in, display header for View Details option-->
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ArtistPO artist in Model.ListOfArtistPOs)
+            {
+                <tr>
+                    <td>@artist.Name</td>
+                    <td>
+                        @if (artist.Genre == null || artist.Genre == "")
+                        {
+                           <!--Display empty cell if no data exists in DB-->
+                        }
+                        else
+                        {
+                            <!--Display data only if it exists in DB-->
+                            <!--Create list of genres-->
+                            List<string> genres = artist.Genre.Split(',').ToList();
+                           <!--If more than one genre stored in DB, display in unordered list-->
+                            if (genres.Count > 1)
+                            {
+                                foreach (string genre in genres)
+                                {
+                                    <ul>
+                                        @if (genre != "" && genre != " ")
+                                        {
+                                            <!--Display bullet point if there's actual data-->
+                                            <li>@genre</li>
+                                        }
+                                        else
+                                        {
+                                            <!--Do not display bullet point if there's no data-->
+                                        }
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <!--If not more than 1, simply print out value-->
+                                @artist.Genre
+                            }
+                        }
+                    </td>
+                    <td>@artist.Status</td>
+                    <td>
+                        @if (artist.Company == null || artist.Company == "")
+                        {
+                            <!--Display empty cell if no data exists in DB-->
+                        }
+                        else
+                        {
+                            <!--Display data only if it exists in DB-->
+                            @artist.Company
+                        }
+                    </td>
+                    <td>
+                        @if (artist.ExternalLink == null || artist.ExternalLink == "")
+                        {
+                           <!--Display empty cell if no link exists in DB-->
+                        }
+                        else
+                        {
+                            <!--Display link only if one exists in the DB-->
+                            <a href="@artist.ExternalLink" target="_blank">Official Link</a>
+                        }
+                    </td>
+
+                    @if (Session["Username"] == null)
+                    {
+                            <!--If guest, display nothing-->
+                    }
+                    else
+                    {
+                            <!--If user is logged in, display view details option-->
+                        <td>
+                            @Html.ActionLink("View Details", "ViewArtistByID", "Artist",
+                                new { iArtistID = artist.ArtistID }, new { @class = "btn btn-default btn-sm" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <!--No need for a footer at the moment-->
+        </tfoot>
+    </table>
+</div>
+<!--Div for Add New Artist link-->
+<div>
+    @if (Session["Username"] != null && (Int16)Session["Role"] == 3)
+    {
+        <!--If Admin, dispaly link-->
+        @Html.ActionLink("Add New Artist", "AddNewArtist", "Artist",
+            new { @class = "btn btn-success btn-sm" })
+    }
+    else
+    {
+        <!--If not Admin, display nothing-->
+    }
+</div>

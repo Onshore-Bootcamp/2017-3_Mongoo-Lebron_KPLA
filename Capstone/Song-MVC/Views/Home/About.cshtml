@@ -1,0 +1,63 @@
+﻿@model Capstone_MVC.ViewModels.StatsVM
+@{
+    ViewBag.Title = "About";
+}
+<div class="container">
+    <div class="row">
+        <div class="about-us">
+            <div class="col-md-6">
+                <h2 class="about-us-header">About Us</h2>
+                <span class="sub-header">
+                    Our Story
+                </span>
+                <p>
+                    <h5 class="day-headers">Week 3, Day 4.</h5>
+                    <h6 class="location-headers">Onshore's Software Development Boot Camp.</h6>
+                    Andrew, the instructor, tells the bootcampers to create a diagram(ERD) for a database.
+                    <br />
+                    <br />
+                    <h5 class="day-headers">Week 5, Day 2.</h5>
+                    <h6 class="location-headers">Onshore's Software Development Boot Camp.</h6>
+                    Andrew, the instructor, encourages the bootcampers to finish planning for their
+                    final project.<br />
+                    <br />
+                    <h5 class="day-headers">Week 9, Day 5.</h5>
+                    <h6 class="location-headers">Onshore's Software Development Boot Camp.</h6>
+                    Presentation of final project, this website, to Onshore's hiring managers.<br />
+                </p>
+                <span class="sub-header">
+                    Our Focus
+                </span>
+                <p>
+                    This website is a product of 480+ hours of hard work, 5 weeks of intensive study,
+                    and 40+ mugs of tea.
+                    All of our efforts have been focused upon bringing you the best product that we could
+                    possibly produce.<br />
+                    <br />
+                    The only thing left to say is...<br />
+                    <span class="website-name">K-Pop Lovers, Assemble!</span>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6 stats">
+            <div class="row">
+                <div class="col-md-12 well well-sm">
+                    @Html.LabelFor(model => Model.AverageNumberOfTracksOnAlbums)
+                    @Model.AverageNumberOfTracksOnAlbums
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 well well-sm">
+                    @Html.LabelFor(model => Model.AverageNumberOfMembersInArtists)
+                    @Model.AverageNumberOfMembersInArtists
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 well well-sm">
+                    @Html.LabelFor(model => Model.AverageYearsActiveOfArtists)
+                    @Model.AverageYearsActiveOfArtists
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

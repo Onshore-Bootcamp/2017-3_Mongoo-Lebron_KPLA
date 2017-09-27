@@ -1,0 +1,134 @@
+﻿@using Capstone_MVC.Models
+@model Capstone_MVC.ViewModels.UserVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="all-users">
+    <h2 class="purple-header">All Users</h2>
+    <table class="table table-bordered table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Language</th>
+                <th>External Link</th>
+                <th>Suspended</th>
+                @if (Session["Username"] == null)
+                {
+                    <!--If guest, display nothing-->
+                }
+                else
+                {
+                    <!--If user is logged in, display header for link to View Details-->
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserPO user in Model.ListOfUserPOs)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>
+                        @switch (user.Role)
+                        {
+                            case 1:
+                                    <!--If User, display "User"-->
+                                @Html.LabelFor(model => user.RoleDisplayUser,
+                                    new { style = "font-weight: 400" })
+                                break;
+                            case 2:
+                                    <!--If Power User, display "Power User"-->
+                                @Html.LabelFor(model => user.RoleDisplayPowerUser,
+                                    new { style = "font-weight: 400" })
+                                break;
+                            default:
+                                    <!--If Admin, display "Administrator"-->
+                                @Html.LabelFor(model => user.RoleDisplayAdmin,
+                                    new { style = "font-weight: 400" })
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @if (user.Language == null)
+                        {
+                            <!--Display empty cell if data does not exist in DB-->
+                        }
+                        else
+                        {
+                            <!--Display data only if it exists in DB-->
+                            @user.Language
+                        }
+                    </td>
+                    <td>
+                        @if (user.ExternalLink == null || user.ExternalLink == "")
+                        {
+                            <!--Display empty cell if no link exists in DB-->
+                        }
+                        else
+                        {
+                            <!--Display link only if one exists in DB-->
+                            <!--Create list of Links-->
+                            List<string> usersLinks = user.ExternalLink.Split(',').ToList();
+
+                            if (usersLinks.Count > 1)
+                            {
+                                <!--If more than one link stored in DB, display in unordered list-->
+                                foreach (string link in usersLinks)
+                                {
+                                    <ul>
+                                        @if (link != "" && link != " ")
+                                        {
+                                            <!--Display bullet point if there's actual data-->
+                                            <li><a href="@link" target="_blank">Click Here</a></li>
+                                        }
+                                        else
+                                        {
+                                            <!--Do not display bullet point if there's no data-->
+                                        }
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                                <!--If not more than one, simply print out value-->
+                                <a href="@user.ExternalLink" target="_blank">Click Here</a>
+                            }
+                        }
+                    </td>
+                    <td>@user.Suspended</td>
+
+                    @if (Session["Username"] == null)
+                    {
+                        <!--If guest, display nothing-->
+                    }
+                    else
+                    {
+                        <td>
+                            <!--If user is logged in, display link to View Details-->
+                            @Html.ActionLink("View Details", "ViewUserByID", "User",
+                                new { iUserID = user.UserID }, new { @class = "btn btn-default btn-sm" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <!--Nothing needed here-->
+        </tfoot>
+    </table>
+</div>
+<!--Div for Add New User link-->
+<div>
+    @if (Session["Username"] != null && (Int16)Session["Role"] == 3)
+    {
+        <!--If Admin, display link-->
+        @Html.ActionLink("Add New User", "AddNewUser", "User",
+       new { @class = "btn btn-success btn-sm" })
+    }
+    else
+    {
+        <!--If not Admin, display nothing-->
+    }
+</div>

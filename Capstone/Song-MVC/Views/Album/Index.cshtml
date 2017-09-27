@@ -1,0 +1,125 @@
+﻿@using Capstone_MVC.Models
+@model Capstone_MVC.ViewModels.AlbumVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="all-albums">
+    <h2 class="purple-header">All Albums</h2>
+    <table class="table table-bordered table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Genre</th>
+                <th>Release Date</th>
+                <th>Audio Link</th>
+                @if (Session["Username"] == null)
+                {
+                    <!--If guest, display no header for View Details option-->
+                }
+                else
+                {
+                    <!--If user is logged in, display header for View Details-->
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AlbumPO album in Model.ListOfAlbumPOs)
+            {
+                <tr>
+                    <td>@album.Name</td>
+                    <td>
+                        @if (Session["Username"] == null)
+                        {
+                            <!--If guest, simply display name-->
+                            @album.ArtistName
+                        }
+                        else
+                        {
+                            <!--If signed in, display link to view artist's details-->
+                            @Html.ActionLink(album.ArtistName, "ViewArtistByID", "Artist",
+                                new { iArtistID = album.ArtistID }, null)
+                        }
+                    </td>
+                    <td>
+                        @if (album.Genre == null || album.Genre == "")
+                        {
+                            <!--Display empty cell if no data exists in DB-->
+                        }
+                        else
+                        {
+                            <!--Display data only if it exists in DB-->
+                            <!--Instantiate new list of genres-->
+                            List<string> genres = album.Genre.Split(',').ToList();
+                            <!--If more than one genre stored in DB, display in unordered list-->
+                            if (genres.Count > 1)
+                            {
+                                foreach (string genre in genres)
+                                {
+                                    <ul>
+                                        @if (genre != "" && genre != " ")
+                                        {
+                                            <!--Display bullet point if there's actual data-->
+                                            <li>@genre</li>
+                                        }
+                                        else
+                                        {
+                                            <!--Do not display bullet point if there's no data-->
+                                        }
+                                    </ul>
+                                }
+                            }
+                            else
+                            {
+                             <!--If not more than 1, simply print out value-->
+                                @album.Genre
+                            }
+                        }
+                    </td>
+                    <td>@Convert.ToString(string.Format("{0:MM/dd/yyyy}", album.ReleaseDate))</td>
+                    <td>
+                        @if (album.AudioLink == null || album.AudioLink == "")
+                        {
+                        <!--Display empty cell if no link exists in DB-->
+                        }
+                        else
+                        {
+                        <!--Display link as link if one exists in DB-->
+                            <a href="@album.AudioLink" target="_blank">Listen Now</a>
+                        }
+                    </td>
+                    @if (Session["Username"] == null)
+                {
+                        <!--If guest, display nothing-->
+                    }
+                    else
+                    {
+                        <!--If user is logged in, display View Details option-->
+                        <td>
+                            @Html.ActionLink("View Details", "ViewAlbumByID", "Album",
+                                new { iAlbumID = album.AlbumID }, new { @class = "btn btn-default btn-sm" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <!--No need for footer-->
+        </tfoot>
+    </table>
+</div>
+<!--Div for Add New Album link-->
+<div>
+    @if (Session["Username"] != null && (Int16)Session["Role"] == 3)
+    {
+        <!--If Admin, display link-->
+        @Html.ActionLink("Add New Album", "AddNewAlbum", "Album",
+            new { @class = "btn btn-success btn-sm" })
+    }
+    else
+    {
+        <!--If not Admin, display nothing-->
+    }
+</div>

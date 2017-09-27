@@ -1,0 +1,233 @@
+﻿@model Capstone_MVC.ViewModels.UserVM
+@{
+    ViewBag.Title = "ViewUserByID";
+}
+
+<div class="profile-div">
+    <h2 class="purple-header">
+        @Html.LabelFor(model => Model.User.UsersProfile,
+                                  new { style = "margin-left: 40%" })
+    </h2>
+    <!--Div for User's Profile-->
+    <div class="container">
+        <div class="row">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div style="text-align: center">
+                            <h4 class="profile-username">@Model.User.Username</h4>
+                        </div>
+                        <hr />
+                        <div>
+                            <i class="glyphicon glyphicon-flash"></i>
+                            @switch (Model.User.Role)
+                            {
+                                case 1:
+                                    <!--If User, display "User"-->
+                                    @Html.LabelFor(model => Model.User.Role, new { @class = "profile-label" })
+                                    @Html.LabelFor(model => Model.User.RoleDisplayUser,
+                                        new { style = "font-weight: 400" })
+                                    break;
+                                case 2:
+                                    <!--If Power User, display "Power User"-->
+                                    @Html.LabelFor(model => Model.User.Role, new { @class = "profile-label" })
+                                    @Html.LabelFor(model => Model.User.RoleDisplayPowerUser,
+                                        new { style = "font-weight: 400" })
+                                    break;
+                                default:
+                                    <!--If Admin, display "Administrator"-->
+                                    @Html.LabelFor(model => Model.User.Role, new { @class = "profile-label" })
+                                    @Html.LabelFor(model => Model.User.RoleDisplayAdmin,
+                                        new { style = "font-weight: 400" })
+                                    break;
+                            }
+                            <br />
+                            <i class="glyphicon glyphicon-th-large"></i>
+                            @Html.LabelFor(model => Model.User.Suspended)
+                            @Model.User.Suspended
+                            <br />
+                            @if (Model.User.Language == null || Model.User.Language == "")
+                            {
+                                <!--If null, display nothing-->
+                            }
+                            else
+                            {
+                                <!--Display language only if it exists in the DB-->
+                                <i class="glyphicon glyphicon-globe"></i>
+                                @Html.LabelFor(model => Model.User.Language, new { @class = "profile-label" })
+                                @Model.User.Language<br />
+                            }
+                            @if (Model.User.Birthdate == null)
+                            {
+                                <!--If null, display nothing-->
+                            }
+                            else
+                            {
+                                <!--Display birthdate only if it exists in the DB-->
+                                <i class="glyphicon glyphicon-gift"></i>
+                                @Html.LabelFor(model => Model.User.Birthdate, new { @class = "profile-label" })
+                                @Convert.ToString(string.Format("{0:MM/dd/yyyy}", Model.User.Birthdate))<br />
+                            }
+                            @if (Model.User.FavoriteSongs == null || Model.User.FavoriteSongs == "")
+                            {
+                                    <!--Display nothing if none exist in DB-->
+                            }
+                            else
+                            {
+                                    <!--Display data only if it existss in DB-->
+                                <i class="glyphicon glyphicon-music"></i>
+                                @Html.LabelFor(model => Model.User.FavoriteSongs,
+                                    new { @class = "profile-label" })
+                                <br />
+                                    <!--Create list of songs-->
+                                List<string> favoriteSongs = Model.User.FavoriteSongs.Split(',').ToList();
+                                if (favoriteSongs.Count > 1)
+                                {
+                                     <!--If more than one song stored in DB, display in unordered list-->
+                                    foreach (string song in favoriteSongs)
+                                    {
+                                        <ul>
+                                            @if (song != "" && song != " ")
+                                            {
+                                                <!--Display bullet point if there's actual data-->
+                                                <li>@song</li>
+                                            }
+                                            else
+                                            {
+                                                <!--Do not display bullet point if there's no data-->
+                                            }
+                                        </ul>
+                                    }
+                                }
+                                else
+                                {
+                                    <!--If not more than one, simply print out value-->
+                                    @Model.User.FavoriteSongs
+                                }
+                            }
+                            <!--Dropdown Menu Button for links-->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                        data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    @Html.LabelFor(model => Model.User.ExternalLink)
+                                </button>
+                                <p>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if (Model.User.ExternalLink == null || Model.User.ExternalLink == "")
+                                        {
+                                            <!--Display nothing-->
+                                        }
+                                        else
+                                        {
+                                            <!--Display data only if it exists in DB-->
+                                            <!--Create list of links-->
+                                            List<string> usersLinks =
+                                                Model.User.ExternalLink.Split(',').ToList();
+
+                                            if (usersLinks.Count > 1)
+                                            {
+                                                <!--If more than one link stored in DB,
+                                                    display in unordered list-->
+                                                foreach (string link in usersLinks)
+                                                {
+                                                    if (link != "" && link != " ")
+                                                    {
+                                                        <!--Display bullet point if there's actual data-->
+                                                        <li><a href="@link" target="_blank">@link</a></li>                                                    }
+                                                    else
+                                                    {
+                                                        <!--Do not display bullet point if there's no data-->
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                            <!--If not more than one, dispaly single link-->
+                                                <li>
+                                                    <a href="@Model.User.ExternalLink" target="_blank">
+                                                        @Model.User.ExternalLink
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
+
+                                        @if (Session["UserID"].Equals(Model.User.UserID) ||
+                (Int16)Session["Role"] == 2 && Model.User.Role == 1 ||
+                (Int16)Session["Role"] == 3)
+                                        {
+                                            <!--If User(on own profile), PU on User's profile, or Admin,
+                                                display link to Update Profile-->
+                                            <li class="divider"></li>
+                                            <li>
+                                                @Html.ActionLink("Add Link", "UpdateUserByID", "User",
+                                                    new { iUserID = Session["UserID"] }, null)
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <!--If User on other user's profile, do not display link to
+                                                Update Profile-->
+                                        }
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                        <h1></h1>
+                        @if (Model.User.AboutMeContent == null)
+                        {
+                            <!--If null, display nothing-->
+                        }
+                        else
+                        {
+                            <!--Display birthdate only if it exists in the DB-->
+                            <i class="glyphicon glyphicon-user"></i>
+                            @Html.LabelFor(model => Model.User.AboutMeContent, new { @class = "profile-label" })
+                            <br />
+                            @Model.User.AboutMeContent
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Div for links-->
+<div>
+    <!--Always display View All button-->
+    @Html.ActionLink("View All Users", "Index", "User", new { @class = "btn btn-default btn-sm" })
+
+    <div class="power-option-links">
+        @if (Session["Role"] == null)
+        {
+           <!--If guest, display nothing-->
+        }
+        else if ((Int64)Session["UserID"] == Model.User.UserID ||
+            (Int16)Session["Role"] == 2 && Model.User.Role == 1 ||
+            (Int16)Session["Role"] == 3)
+        {
+            <!--If User(on own profile), Power User(on User's profile) or Admin display Update button-->
+            @Html.ActionLink("Update Profile", "UpdateUserByID", "User", new { iUserID = Model.User.UserID },
+                new { @class = "btn btn-success btn-sm" })
+
+            if ((Int16)Session["Role"] == 3 && (String)Session["Username"] != Model.User.Username)
+            {
+                <!--If Admin(not on own profile), display Delete button-->
+                @Html.ActionLink("Delete", "DeleteUserByID", "User", new { iUserID = Model.User.UserID },
+                    new
+                    {
+                        onclick = "return confirm('Are you sure you want to delete this user?');",
+                        @class = "btn btn-danger btn-sm"
+                    })
+            }
+            else
+            {
+                <!--Display nothing-->
+            }
+        }
+        else
+        {
+            <!--Display nothing-->
+        }
+    </div>
+</div>

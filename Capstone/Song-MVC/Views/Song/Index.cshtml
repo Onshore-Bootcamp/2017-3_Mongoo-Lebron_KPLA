@@ -1,0 +1,113 @@
+﻿@using Capstone_MVC.Models
+@model Capstone_MVC.ViewModels.SongVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="all-songs">
+    <h2 class="purple-header">All Songs</h2>
+    <table class="table table-bordered table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Album</th>
+                <th>Artist</th>
+                <th>Lyrics Link</th>
+                <th>Audio Link</th>
+                @if (Session["Username"] == null)
+                {
+                    <!--If guest, display no header for View Details option-->
+                }
+                else
+                {
+                    <!--If user is logged in, display header for View Details-->
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SongPO song in Model.ListOfSongPOs)
+            {
+                <tr>
+                    <td>@song.Name</td>
+                    <td>
+                        @if (Session["Username"] == null)
+                        {
+                            <!--If guest, simply display name-->
+                            @song.AlbumName
+                        }
+                        else
+                        {
+                            <!--If signed in, dsiplay link to view album's details-->
+                            @Html.ActionLink(song.AlbumName, "ViewAlbumByID", "Album",
+                                new { iAlbumID = song.AlbumID }, null)
+                        }
+                    </td>
+                    <td>
+                        @if (Session["Username"] == null)
+                        {
+                        <!--If guest, simply display name-->
+                            @song.ArtistName
+                        }
+                        else
+                        {
+                        <!--If signed in, display link to view artist's details-->
+                            @Html.ActionLink(song.ArtistName, "ViewArtistByID", "Artist",
+                                new { iArtistID = song.ArtistID }, null)
+                        }
+                    </td>
+                    <td>
+                        @if (song.LyricsLink == null || song.LyricsLink == "")
+                        {
+                        <!--Display empty cell if no link exists in DB-->
+                        }
+                        else
+                        {
+                        <!--Display link as link if one exists in DB-->
+                            <a href="@song.LyricsLink" target="_blank">Read Now</a>
+                        }
+                    </td>
+                    <td>
+                        @if (song.AudioLink == null || song.AudioLink == "")
+                        {
+                        <!--Display empty cell if no link exists in DB-->
+                        }
+                        else
+                        {
+                        <!--Display link as link if one exists in DB-->
+                            <a href="@song.AudioLink" target="_blank">Listen Now</a>
+                        }
+                    </td>
+                    @if (Session["Username"] == null)
+                    {
+                        <!--If guest, display nothing-->
+                    }
+                    else
+                    {
+                        <!--If user is logged in, display View Details option-->
+                        <td>
+                            @Html.ActionLink("View Details", "ViewSongByID", "Song",
+                                new { iSongID = song.SongID }, new { @class = "btn btn-default btn-sm" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <!--No need for footer-->
+        </tfoot>
+    </table>
+</div>
+<!--Div for Add New Song link-->
+<div>
+    @if (Session["Username"] != null && (Int16)Session["Role"] == 3)
+    {
+        <!--If Admin, display link-->
+        @Html.ActionLink("Add New Song", "AddNewSong", "Song",
+            new { @class = "btn btn-success btn-sm" })
+    }
+    else
+    {
+        <!--If not Admin, display nothing-->
+    }
+</div>

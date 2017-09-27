@@ -1,0 +1,93 @@
+﻿@model Capstone_MVC.ViewModels.SongVM
+@{
+    ViewBag.Title = "AddNewSong";
+}
+
+@using (Html.BeginForm("AddNewSong", "Song", FormMethod.Post))
+{
+    <h2 class="purple-header">Add New Song</h2>
+    <div class="container row">
+        <!--Div for first column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Song.Name)
+                </div>
+                @Html.TextBoxFor(model => Model.Song.Name,
+                   new { @class = "form-control", @placeholder = "Song's Name..." })
+                @Html.ValidationMessageFor(model => Model.Song.Name, "",
+                   new { @class = "text-danger" })
+            </div>
+            <div class="form-group form-horizontal">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Song.AlbumID)
+                </div>
+                @Html.DropDownListFor(model => Model.Song.AlbumID, Model.Song.DropdownAlbums,
+                    "-- Pick an existing album --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Song.AlbumID, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Song.TrackNumber)
+                @Html.TextBoxFor(model => Model.Song.TrackNumber,
+                    new { @class = "form-control", @placeholder = "Song's Track Number..." })
+            </div>
+        </div>
+        <!--Div for second column-->
+        <div class="col-md-4">
+            <div class="form-group form-horizontal">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Song.ArtistID)
+                </div>
+                @Html.DropDownListFor(model => Model.Song.ArtistID, Model.Song.DropdownArtists,
+                    "-- Pick an existing artist --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.Song.ArtistID, "",
+                    new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Song.Genre)
+                @Html.TextBoxFor(model => Model.Song.Genre,
+                    new { @class = "form-control", @placeholder = "Song's Genre..." })
+            </div>
+            <div class="form-group">
+                <!--Div for red asterisk-->
+                <div class="required-fields">
+                    @Html.LabelFor(model => Model.Song.Duration)
+                </div>
+                @Html.TextBoxFor(model => Model.Song.Duration,
+                    new { @class = "form-control", @placeholder = "Song Duration...", @Value = "" })
+                @Html.ValidationMessageFor(model => Model.Song.Duration, "",
+                    new { @class = "text-danger" })
+            </div>
+        </div>
+        <!--Div for third column-->
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Song.GaonAwards)
+                @Html.TextBoxFor(model => Model.Song.GaonAwards,
+                    new { @class = "form-control", @placeholder = "Gaon Awards Won..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Song.LyricsLink)
+                @Html.TextBoxFor(model => Model.Song.LyricsLink,
+                    new { @class = "form-control", @placeholder = "Link To Song Lyrics..." })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Song.AudioLink)
+                @Html.TextBoxFor(model => Model.Song.AudioLink,
+                    new { @class = "form-control", @placeholder = "Link To Song Audio..." })
+            </div>
+        </div>
+        <div class="form-group col-md-offset-5">
+            <!--Submit button-->
+            <input class="btn btn-success btn-lg" type="submit" value="Submit" />
+        </div>
+    </div>
+}
+<!--Div for Cancel button-->
+<div>
+    @Html.ActionLink("Cancel", "Index", "Song", null, new { @class = "btn btn-danger" })
+</div>

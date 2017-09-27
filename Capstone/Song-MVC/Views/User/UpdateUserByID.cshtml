@@ -1,0 +1,270 @@
+﻿@model Capstone_MVC.ViewModels.UserVM
+@{
+    ViewBag.Title = "UpdateUserByID";
+}
+
+<!--Div for User's properties-->
+<div class="container row">
+
+    <h2 class="purple-header">Update User</h2>
+    <h2></h2>
+    <h4 class="purple-header">Current Details</h4>
+    <h2></h2>
+
+    @using (Html.BeginForm("UpdateUserByID", "User", FormMethod.Post))
+    {
+        if ((Int16)Session["Role"] == 1)
+        {
+            <!--If user, display following fields in columns-->
+            <!--Div for first column-->
+            <div class="col-md-4">
+                @Html.HiddenFor(model => Model.User.UserID)
+                <div class="form-group">
+                    <!--Div for red asterisk-->
+                    <div class="required-fields">
+                        @Html.LabelFor(model => Model.User.Username)
+                    </div>
+                    @Html.TextBoxFor(model => Model.User.Username,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.User.Username, "",
+                        new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <!--Div for red asterisk-->
+                    <div class="required-fields">
+                        @Html.LabelFor(model => Model.User.FirstName)
+                    </div>
+                    @Html.TextBoxFor(model => Model.User.FirstName,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.User.FirstName, "",
+                        new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <!--Div for red asterisk-->
+                    <div class="required-fields">
+                        @Html.LabelFor(model => Model.User.LastName)
+                    </div>
+                    @Html.TextBoxFor(model => Model.User.LastName,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.User.LastName, "",
+                        new { @class = "text-danger" })
+                </div>
+            </div>
+            <!--Div for second column-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <!--Div for red asterisk-->
+                    <div class="required-fields">
+                        @Html.LabelFor(model => Model.User.EmailAddress)
+                    </div>
+                    @Html.TextBoxFor(model => Model.User.EmailAddress,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.User.EmailAddress, "",
+                        new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.Language)
+                    @Html.TextBoxFor(model => Model.User.Language,
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.Birthdate)
+                    @Html.TextBoxFor(model => Model.User.Birthdate, "{0:MM/dd/yyyy}",
+                        new { @class = "form-control" })
+                </div>
+            </div>
+            <!--Div for third column-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.FavoriteSongs)
+                    @Html.TextBoxFor(model => Model.User.FavoriteSongs,
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.ExternalLink)
+                    @Html.TextBoxFor(model => Model.User.ExternalLink,
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.AboutMeContent)
+                    @Html.TextBoxFor(model => Model.User.AboutMeContent,
+                        new { @class = "form-control" })
+                </div>
+            </div>
+        }
+        else
+        {
+                <!--If Power User or Admin, display fields in following columns-->
+                <!--Div for first column-->
+            <div class="col-md-3 col-md-offset-3">
+                @Html.HiddenFor(model => Model.User.UserID)
+                <div class="form-group">
+                    <!--Div for red asterisk-->
+                    <div class="required-fields">
+                        @Html.LabelFor(model => Model.User.Username)
+                    </div>
+                    @Html.TextBoxFor(model => Model.User.Username,
+                        new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.User.Username, "",
+                        new { @class = "text-danger" })
+                </div>
+                @if ((Int16)Session["Role"] == 3)
+                    {
+                <!--If Admin, display the following options for column 1-->
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.Role)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.Role,
+               new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.Role, "",
+               new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.FirstName)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.FirstName,
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.FirstName, "",
+                            new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.LastName)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.LastName,
+                                new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.LastName, "",
+                                new { @class = "text-danger" })
+                    </div>
+                        <div class="form-group">
+                            <!--Div for red asterisk-->
+                            <div class="required-fields">
+                                @Html.LabelFor(model => Model.User.EmailAddress)
+                            </div>
+                            @Html.TextBoxFor(model => Model.User.EmailAddress,
+                                new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.User.EmailAddress, "",
+                                new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <!--Div for red asterisk-->
+                            <div class="required-fields">
+                                @Html.LabelFor(model => Model.User.Password)
+                            </div>
+                            @Html.TextBoxFor(model => Model.User.Password,
+                                new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => Model.User.Password, "",
+                                new { @class = "text-danger" })
+                        </div>
+                }
+                else
+                {
+                <!--If Power User, display the following options in column 1-->
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.FirstName)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.FirstName,
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.FirstName, "",
+                            new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.LastName)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.LastName,
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.LastName, "",
+                            new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.EmailAddress)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.EmailAddress,
+                                new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.EmailAddress, "",
+                                new { @class = "text-danger" })
+                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => Model.User.Language)
+                            @Html.TextBoxFor(model => Model.User.Language,
+                                new { @class = "form-control" })
+                        </div>
+                }
+            </div>
+                <!--Div for second column-->
+            <div class="col-md-6">
+                @if ((Int16)Session["Role"] == 3)
+                    {
+                <!--If Admin, display Language option in column 2-->
+                    <div class="form-group">
+                        @Html.LabelFor(model => Model.User.Language)
+                        @Html.TextBoxFor(model => Model.User.Language,
+                            new { @class = "form-control" })
+                    </div>
+                }
+                else
+                {
+                <!--If not Admin, do not display Language option again-->
+                }
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.Birthdate)
+                    @Html.TextBoxFor(model => Model.User.Birthdate, "{0:MM/dd/yyyy}",
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.FavoriteSongs)
+                    @Html.TextBoxFor(model => Model.User.FavoriteSongs,
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.ExternalLink)
+                    @Html.TextBoxFor(model => Model.User.ExternalLink,
+                        new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.User.AboutMeContent)
+                    @Html.TextBoxFor(model => Model.User.AboutMeContent,
+                        new { @class = "form-control" })
+                </div>
+                @if ((Int16)Session["Role"] == 2 && Model.User.Role != 3 || (Int16)Session["Role"] == 3)
+                    {
+                <!--If Power User(not on Admin's profile), or Admin, allow option to suspend user-->
+                    <div class="form-group">
+                        <!--Div for red asterisk-->
+                        <div class="required-fields">
+                            @Html.LabelFor(model => Model.User.Suspended)
+                        </div>
+                        @Html.TextBoxFor(model => Model.User.Suspended,
+                            new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => Model.User.Suspended, "",
+                            new { @class = "text-danger" })
+                    </div>
+                }
+                else
+                {
+                <!--If not Power User or Admin, do not allow option to suspend user-->
+                }
+            </div>
+        }
+                <!--Submit button-->
+        <div class="form-group update-profile-btn">
+            <input class="btn btn-success btn-lg" type="submit" value="Update" />
+        </div>
+    }
+</div>
+<!--Div for Cancel button-->
+<div>
+    @Html.ActionLink("Cancel", "ViewUserByID", "User", new { iUserID = Model.User.UserID },
+        new { @class = "btn btn-danger" })
+</div>

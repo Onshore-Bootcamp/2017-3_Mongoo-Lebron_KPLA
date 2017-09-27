@@ -1,0 +1,182 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* ----- Let's get started. ----- */
+
+/*.links:link, .links:visited {
+    color: white;
+    padding: inherit;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}*/
+
+/*a:hover , .links:active {
+    background-color:lightslategray;
+}*/
+
+/* Style "Update" and "Delete" buttons */
+.power-option-links {
+    float: right;
+}
+
+/* Set red asterisk after required fields on forms */
+.required-fields:after {
+    content: "*";
+    font-weight: bold;
+    color: red;
+}
+
+/* Style statistics displayed in "About Us" */
+.stats {
+    margin-top: 5%;
+    color: rgb(58, 0, 122);
+}
+
+/* Style "About Us" header */
+.about-us-header {
+    font-weight: 600;
+    color: #1E1E1E;
+    margin: 5% 37%;
+}
+
+/* Style "About Us" sub headers */
+.sub-header {
+    font-size: larger;
+    font-weight: 600;
+    color: rgb(145, 15, 0);
+    margin: 1% 43%;
+}
+
+/* About Us formatting */
+h5.day-headers {
+    font-weight: bold;
+    color: #1E1E1E;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 3%;
+}
+
+h6.location-headers {
+    font-weight: 600;
+    color: #1E1E1E;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 3%;
+}
+
+/* Message for Error view */
+.error-messages {
+    margin-top: 5%;
+    color: rgb(155, 0, 0);
+}
+
+/* Center profile on page */
+.profile-div {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+/* Style username on profile */
+h4.profile-username {
+    font-weight: bold;
+    color: #1E1E1E;
+}
+
+/* Dividing lines */
+hr {
+    border-color: black;
+}
+
+/* For correct spacing in displaying user's profiles */
+.profile-label {
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+/* "Welcome" greeting */
+.jumbotron {
+    background-color: #d3d3d3;
+    color: #1E1E1E;
+    padding-bottom: 25%;
+}
+
+    .jumbotron h1 {
+        padding-top: 10%;
+        font-family: 'AR DECODE', 'Segoe Script', Verdana;
+        font-size: 1000%;
+        font-weight: 900;
+        text-align: center;
+    }
+
+/* Log In form */
+.login-form {
+    padding: 7% 40% 13%;
+}
+
+.login-title {
+    padding: 7% 27% 10%;
+    color: rgb(58, 0, 122);
+}
+
+.purple-header, .contact-us h2 {
+    color: rgb(58, 0, 122);
+}
+
+/* Sign Up or Add New User form */
+.signup-form h1 {
+    padding-left: 36%;
+    color: rgb(58, 0, 122);
+}
+
+.signup-button, .update-profile-btn {
+    padding-left: 44%;
+}
+
+/* Styling tables */
+.table {
+    background-color: rgb(225, 225, 225);
+    border-collapse: collapse;
+}
+
+/* Error message in case of incorrect login credentials */
+.incorrect-login {
+    color: rgb(155,0,0);
+}
+
+/* Website Name in "About Us" */
+span.website-name {
+    font-family: 'AR JULIAN', 'Segoe Script', Verdana;
+    font-size: 250%;
+    font-weight: 900;
+    margin: 10%;
+}
+
+/* Website Name in navbar */
+.website-title {
+    font-family: 'AR JULIAN', 'Segoe Script', Verdana;
+    font-size: 250%;
+    font-weight: 900;
+}

@@ -1,0 +1,3 @@
+09-14-2017 10:39 - Could not find stored procedure 'VIEW_AL_ALBUMS'.
+09-15-2017 07:08 - Cannot open database "CapstoneDB" requested by the login. The login failed.
+Login failed for user 'Admin2-PC\Mongoo'.

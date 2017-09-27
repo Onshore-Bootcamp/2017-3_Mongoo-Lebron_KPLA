@@ -1,0 +1,194 @@
+﻿@model Capstone_MVC.ViewModels.AlbumVM
+@{
+    ViewBag.Title = "ViewAlbumByID";
+}
+
+<!--Div for ViewAlbumByID table-->
+<div>
+    <h3 class="purple-header">Album Details</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Artist</td>
+                <td>Genre</td>
+                <td>Release Date</td>
+                <td>Picture URL</td>
+                <td>Number of Tracks</td>
+                <td>Duration</td>
+                <td>Album Type</td>
+                <td>Release Type</td>
+                <td>Sales</td>
+                <td>Gaon Awards Won</td>
+                <td>Audio Link</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Album.Name</td>
+                <td>
+                    @if (Session["Username"] == null)
+                    {
+                            <!--If guest, simply display name-->
+                        @Model.Album.ArtistName
+                    }
+                    else
+                    {
+                            <!--If signed in, display link to view artist's details-->
+                        @Html.ActionLink(Model.Album.ArtistName, "ViewArtistByID", "Artist",
+                            new { iArtistID = Model.Album.ArtistID }, null)
+                    }
+                </td>
+                <td>
+                    @if (Model.Album.Genre == null || Model.Album.Genre == "")
+                    {
+                        <!--Display empty cell if no link exists in DB-->
+                    }
+                    else
+                    {
+                        <!--Display genre only if it exists in the DB-->
+                        <!--Instantiate list of genres-->
+                        List<string> genres = Model.Album.Genre.Split(',').ToList();
+
+                        <!--If more than one genre stored in DB, display in unordered list-->
+                        if (genres.Count > 1)
+                        {
+                            foreach (string genre in genres)
+                            {
+                                <ul>
+                                    @if (genre != "" && genre != " ")
+                                    {
+                                        <!--Display bullet point if there's actual data-->
+                                        <li>@genre</li>
+                                    }
+                                    else
+                                    {
+                                        <!--Do not display bullet point if there's no data-->
+                                    }
+                                </ul>
+                            }
+                        }
+                        else
+                        {
+                       <!--If not more than 1, simply print out value-->
+                            @Model.Album.Genre
+                        }
+                    }
+                </td>
+                <td>@Convert.ToString(string.Format("{0:MM/dd/yyyy}", Model.Album.ReleaseDate))</td>
+                <td>
+                    @if (Model.Album.PictureURL == null || Model.Album.PictureURL == "")
+                    {
+                        <!--Display empty cell if no link exists in DB-->
+                    }
+                    else
+                    {
+                        <!--Display link only if one exists in the DB-->
+                        <a href="@Model.Album.PictureURL" target="_blank">View Picture</a>
+                    }
+                </td>
+                <td>@Model.Album.NumberOfTracks</td>
+                <td>@Model.Album.Duration</td>
+                <td>@Model.Album.AlbumType</td>
+                <td>@Model.Album.ReleaseType</td>
+                <td>
+                    @if (Model.Album.Sales == null)
+                    {
+                        <!--Display empty cell if no data exists-->
+                    }
+                    else
+                    {
+                        <!--Display data if it exists in DB-->
+                        @Model.Album.Sales
+                    }
+                </td>
+                <td>
+                    @if (Model.Album.GaonAwards == null || Model.Album.GaonAwards == "")
+                    {
+                        <!--Display empty cell if no data exists-->
+                    }
+                    else
+                    {
+                        <!--Display data if it exists in DB-->
+                        <!--Instantiate new list of Awards-->
+                        List<string> awards = Model.Album.GaonAwards.Split(',').ToList();
+                        <!--If more than one award stored in DB, display in unordered list-->
+                        if (awards.Count > 1)
+                        {
+                            foreach (string award in awards)
+                            {
+                                <ul>
+                                    @if (award != "" && award != " ")
+                                    {
+                                        <!--Display bullet point if there's actual data-->
+                                        <li>@award</li>
+                                    }
+                                    else
+                                    {
+                                        <!--Do not display bullet point if there's no data-->
+                                    }
+                                </ul>
+                            }
+                        }
+                        else
+                        {
+                            <!--If not more than 1, simply print out value-->
+                            @Model.Album.GaonAwards
+                        }
+                    }
+                </td>
+                <td>
+                    @if (Model.Album.AudioLink == null || Model.Album.AudioLink == "")
+                    {
+                        <!--Display empty cell if no data exists-->
+                    }
+                    else
+                    {
+                        <!--Display data if it exists in DB-->
+                        <a href="@Model.Album.AudioLink" target="_blank">Listen Now</a>
+                    }
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <!--No need for footer-->
+        </tfoot>
+    </table>
+</div>
+<!--Div for links-->
+<div>
+    @Html.ActionLink("Return to View All", "Index", "Album", new { @class = "btn btn-default btn-sm" })
+
+    <div class="power-option-links">
+        @if (Session["Role"] == null)
+        {
+            <!--If guest, display nothing-->
+        }
+        else if ((Int16)Session["Role"] == 2 || (Int16)Session["Role"] == 3)
+        {
+            <!--If Power User or Admin, display Update button -->
+            @Html.ActionLink("Update", "UpdateAlbumByID", "Album", new { iAlbumID = Model.Album.AlbumID },
+                 new { @class = "btn btn-success btn-sm" })
+
+            if ((Int16)Session["Role"] == 3)
+            {
+                <!--If Admin, display Delete button-->
+                @Html.ActionLink("Delete", "DeleteAlbumByID", "Album", new { iAlbumID = Model.Album.AlbumID },
+                    new
+                    {
+                        onclick = "return confirm('Are you sure you want to delete this album?" +
+                          " All songs on this album will also be deleted.');",
+                        @class = "btn btn-danger btn-sm"
+                    })
+            }
+            else
+            {
+                <!--Display nothing-->
+            }
+        }
+        else
+        {
+            <!--If not Power User or Admin, display nothing-->
+        }
+    </div>
+</div>

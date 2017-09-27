@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Site.css" type="text/css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <!--Div for main navbar button-->
+            <div class="navbar-header navbar-collapse collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("KPLA", "Contact", "Home", new { area = "" },
+                    new { @class = "navbar-brand website-title", @style = "color: #D3D3D3" })
+            </div>
+            <!--Div for rest of navbar-->
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                    <li>
+                        <!--View All-->
+                        <button class="btn btn-default navbar-btn dropdown-toggle" type="button"
+                                id="dropDownMenuTables" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                            View All
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropDownMenuTables">
+                            <li>@Html.ActionLink("Artists", "Index", "Artist")</li>
+                            <li> @Html.ActionLink("Albums", "Index", "Album")</li>
+                            <li>@Html.ActionLink("Songs", "Index", "Song")</li>
+
+                            @if (Session["Username"] == null)
+                            {
+                                <!--If guest, don't display option to view all users-->
+                            }
+                            else
+                            {
+                                <!--If logged in, display option to view all users-->
+                                <li>@Html.ActionLink("Users", "Index", "User")</li>
+                            }
+                        </ul>
+                    </li>
+                    <!-- Creating objects-->
+                    @if (Session["Username"] != null && (Int16)Session["Role"] == 3)
+                    {
+                        <!--If Admin, display options-->
+                        <li>
+                            <button class="btn btn-default navbar-btn dropdown-toggle" type="button"
+                                    id="dropDownMenuAddNew" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                Add New
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropDownMenuAddNew">
+                                <li>@Html.ActionLink("Artist", "AddNewArtist", "Artist")</li>
+                                <li> @Html.ActionLink("Album", "AddNewAlbum", "Album")</li>
+                                <li>@Html.ActionLink("Song", "AddNewSong", "Song")</li>
+                                <li>@Html.ActionLink("User", "AddNewUser", "User")</li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                         <!--If not Admin, display nothing-->
+                    }
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!--Search button-->
+                        @*<form id="sb-search" class="sb-search navbar-right navbar-form">
+                            <input class="sb-search-input" placeholder="Search..." type="search"
+                                   name="search" id="search" />
+                            <input class="sb-search-submit" type="submit" />
+                            <span class="sb-icon-search"></span>
+                        </form>*@
+                    </li>
+                    @if (Session["Username"] == null)
+                    {
+                        <!--If guest, display Sign Up link-->
+                        <li>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>@Html.ActionLink("Sign Up", "AddNewUser", "User")</li>
+                                <li>@Html.ActionLink("Log In", "Login", "User")</li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <!--If signed in, display User Menu-->
+                        <li>
+                            <button class="btn btn-default navbar-btn dropdown-toggle" type="button"
+                                    id="dropDownMenuUser" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
+                                <span class="icon-stack">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <i class="caret"></i>
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropDownMenuUser">
+                                <li>
+                                    @Html.ActionLink("Profile", "ViewUserByID", "User",
+                                        new { iUserID = Session["UserID"] }, null)
+                            </li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Log Out", "Logout", "User")</li>
+                        </ul>
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            @if (Session["Username"] == null || (Int16)Session["Role"] == 1)
+            {
+                //If guest, or User display Contact Us link
+                <div>
+                    @Html.ActionLink("Contact Us", "Contact", "Home")
+                </div>
+            }
+            else
+            {
+                //Display nothing
+            }
+            <p>&copy; @DateTime.Now.Year - Designed and Built by Munkhgerel Lebron.</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

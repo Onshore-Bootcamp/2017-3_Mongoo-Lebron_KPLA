@@ -1,0 +1,7 @@
+09-14-2017 09:04 - Could not find stored procedure 'IEW_ALL_ALBUMS'.
+09-14-2017 09:22 - Could not find stored procedure 'VIEW_ALL_AS'.
+09-14-2017 10:07 - Could not find stored procedure 'VW_ALL_ALBUMS'.
+09-14-2017 10:39 - Could not find stored procedure 'VIEW_AL_ALBUMS'.
+09-15-2017 07:08 - Cannot open database "CapstoneDB" requested by the login. The login failed.
+Login failed for user 'Admin2-PC\Mongoo'.
+09-15-2017 09:54 - Could not find stored procedure 'VIE_ALL_ALBUMS'.

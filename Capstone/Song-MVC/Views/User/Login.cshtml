@@ -1,0 +1,44 @@
+﻿@model Capstone_MVC.ViewModels.UserVM
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="well login-form">
+
+    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <div class="login-title">
+            <h2>Log In</h2>
+        </div>
+        if (Model.LoginUser.IncorrectMessage == null)
+        {
+            <!--If user's first try, do not display error message-->
+        }
+        else
+        {
+            <!--If not first try, display error message-->
+            <div class="incorrect-login">
+                @Html.LabelFor(model => Model.LoginUser.IncorrectMessage)
+            </div>
+        }
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => Model.LoginUser.Username)
+                @Html.TextBoxFor(model => Model.LoginUser.Username,
+       new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.LoginUser.Username, "",
+       new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.LoginUser.Password)
+                @Html.PasswordFor(model => Model.LoginUser.Password,
+       new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => Model.LoginUser.Password, "",
+       new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <input class="btn btn-success" type="submit" value="Login" />
+            </div>
+        </div>
+    }
+</div>

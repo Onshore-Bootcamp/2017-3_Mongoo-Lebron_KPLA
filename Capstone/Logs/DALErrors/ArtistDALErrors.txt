@@ -1,0 +1,3 @@
+09-14-2017 09:51 - Could not find stored procedure 'IEW_ALL_ARTISTS'.
+09-14-2017 09:38 - Could not find stored procedure 'IEW_ALL_ARTISTS'.
+09-14-2017 10:24 - Could not find stored procedure 'VIEW_A_ARTISTS'.
